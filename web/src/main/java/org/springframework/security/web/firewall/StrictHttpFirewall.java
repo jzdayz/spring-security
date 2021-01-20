@@ -425,8 +425,11 @@ public class StrictHttpFirewall implements HttpFirewall {
 
 	@Override
 	public FirewalledRequest getFirewalledRequest(HttpServletRequest request) throws RequestRejectedException {
+		// 黑名单方法
 		rejectForbiddenHttpMethod(request);
+		// 黑名单url
 		rejectedBlocklistedUrls(request);
+		// 黑名单远程hostname
 		rejectedUntrustedHosts(request);
 		if (!isNormalized(request)) {
 			throw new RequestRejectedException("The request was rejected because the URL was not normalized.");
